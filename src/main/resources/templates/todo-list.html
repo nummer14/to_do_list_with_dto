@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>📝 할 일 목록</title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body class="container">
+<h1>📝 내 할 일</h1>
+<p>
+  <a th:href="@{/todos/add}" class="btn">➕ 추가</a>
+  <a th:href="@{/logout}" class="btn cancel">로그아웃</a>
+</p>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>제목</th>
+    <th>완료</th>
+    <th>액션</th>
+  </tr>
+  </thead>
+  <tbody th:each="todo: ${todos}">
+  <tr>
+    <td th:text="${todo.id}"></td>
+    <td th:text="${todo.title}"></td>
+    <td th:text="${todo.completed}"></td>
+    <td>
+      <a th:href="@{'/todos/edit/' + ${todo.id}}">수정</a>
+      <form th:action="@{'/todos/delete/' + ${todo.id}}" method="post" style="display:inline;">
+        <button type="submit">삭제</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

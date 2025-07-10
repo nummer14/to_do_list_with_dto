@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title th:text="${todoDto.id} == null ? '➕ 할 일 추가' : '✏️ 할 일 수정'"></title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body class="container">
+<h1 th:text="${todoDto.id} == null ? '➕ 할 일 추가' : '✏️ 할 일 수정'"></h1>
+<form th:action="${todoDto.id} == null ? @{/todos/add} : @{/todos/edit}" th:object="${todoDto}" method="post" class="form-container">
+  <input type="hidden" th:field="*{id}" />
+  <p>
+    <label>
+      제목:
+      <input type="text" th:field="*{title}" />
+    </label>
+  <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+  </p>
+  <p>
+    <label>
+      완료:
+      <input type="checkbox" th:field="*{completed}" />
+    </label>
+  </p>
+  <p>
+    <button type="submit">저장</button>
+    <a th:href="@{/todos}" class="cancel">취소</a>
+  </p>
+</form>
+</body>
+</html>
